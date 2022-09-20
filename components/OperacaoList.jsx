@@ -15,16 +15,25 @@ function OperacaoList() {
 
     useEffect(()=>{
         OperacoesServices.getOperacoes().then(res=>{
+            if(Array.isArray(res)){
+                console.log("é um array")
+            }else{
+                console.log("nãoé um array")
+            }
             setOperacoes(res.data)
         })
     },[reload])
 
     function handlerEditPress(codigo){
         let title = "Editando operação"
-        navigation.navigate("operacoesEdit",{title,codigo,title})
+        navigation.navigate("operacoesEdit",{title,codigo})
     }
     function handlerDeletePress(codigo){
         navigation.navigate("operacoesDelete",{codigo})
+    }
+    function handlerMostrarPress(codigo){
+        let title = "Exibindo operação"
+        navigation.navigate("operacoesShow",{title,codigo})
     }
     function goToAdd() {
         let action = true
@@ -41,16 +50,16 @@ function OperacaoList() {
                 operacoes.map((operacao,index)=>{
                     return(
                         <View key={index} style={styles.container}>
-                            
-
                             <View  style={styles.action}>
-                                <Text key={index} style={styles.textItem}>{operacao.nome}</Text>
+                                <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(operacao.codigo)} >
+                                    <Text key={index} style={styles.textItem}>{operacao.nome}</Text>
+                                </TouchableOpacity>
                                 <View style={styles.action}>
                                     <TouchableOpacity style={styles.editButton} onPress={() => handlerEditPress(operacao.codigo)} >
-                                        <Icon name="edit" size={20} color='blue'></Icon>
+                                        <Icon name="edit" size={20} color='#33525c'></Icon>
                                     </TouchableOpacity >
                                     <TouchableOpacity style={styles.editButton} onPress={() => handlerDeletePress(operacao.codigo)}>
-                                        <Icon name="delete" size={20} color='blue'></Icon>
+                                        <Icon name="delete" size={20} color='#33525c'></Icon>
                                     </TouchableOpacity>    
                                 </View>
                             </View>
@@ -71,16 +80,16 @@ function OperacaoList() {
 
     scrollContainer: {
         flex: 1,
-        width: '98%'        ,
+        width: '98%',
     },
     container: {
         backgroundColor: '#fff',
-        marginTop: 3,
+        marginTop: 4,
         width: '100%'
     },
     textItem: {
         fontSize: 20,
-        margin:6,
+        margin:4,
         alignContent:"flex-start"
     },
     editButton: {
@@ -98,7 +107,7 @@ function OperacaoList() {
     button: {
         marginTop: 10,
         height: 40,
-        backgroundColor: 'navy',
+        backgroundColor: '#33525c',
         borderRadius: 10,
         paddingHorizontal: 24,
         fontSize: 16,
@@ -112,7 +121,8 @@ function OperacaoList() {
     action: {
         flexDirection: "row",
         textAlign:"left",
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        marginTop:5,
     }
 
 })
