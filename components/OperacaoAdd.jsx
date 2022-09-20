@@ -1,10 +1,10 @@
-import { StyleSheet,Text, TextInput, TouchableOpacity,View } from "react-native";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { StyleSheet,Text, TextInput, TouchableOpacity, TouchableOpacityComponent, ToucheableOpacity,View } from "react-native";
+import { useNavigation,useRoute} from "@react-navigation/native";
 import Header  from "./Header";
 import { useEffect, useState } from "react";
 import OperacoesServices from "../services/OperacoesServices";
 
-export default function OperacaoEdit() {
+export default function OperacaoAdd() {
 
     const navigation = useNavigation();
     const [codigo,setCodigo] = useState("")
@@ -13,53 +13,43 @@ export default function OperacaoEdit() {
 
     const [mensagem,setMensagem] = useState("")
     const route = useRoute()
-
-
-    useEffect(()=>{
-        const operacao = OperacoesServices.getOperacaoByCodigo(route.params.codigo)
-        .then(operacao=>{
-            setCodigo(operacao.codigo)
-            setNome(operacao.nome)
-            setDescricao(operacao.descricao)
-        })
-        
-    },[])
-
+   
     async function saveOperacao(){   
         const operacao={
             codigo:codigo,
             nome:nome,
             descricao:descricao
         }
-        setMensagem(OperacoesServices.updateOperacao(operacao))
+        console.log(JSON.stringify(operacao))
+        setMensagem(await(await OperacoesServices.createOperacao(operacao)))
         navigation.navigate("operacoesList")
+        
     }    
   
     return (
         <>
         <Header title={route.params.title}></Header>
         <View style={styles.inputContainer}>
-            
                 <TextInput 
                         style={styles.input}
                         placeholder="digite o código" 
                         clearButtonMode="always"
-                        editable={false}
-                        value={codigo}>
+                        onChangeText={(texto)=>setCodigo(texto)}
+                        value={codigo||''}>
                 </TextInput>
                 <TextInput 
                         style={styles.input}
                         placeholder="digite o Nome" 
                         clearButtonMode="always"
                         onChangeText={(texto)=>setNome(texto)}
-                        value={nome}>
+                        value={nome||''}>
                 </TextInput>
                 <TextInput 
                         style={styles.input}
-                        placeholder="digite a descrição" 
+                        placeholder="digite a descrção" 
                         clearButtonMode="always"
                         onChangeText={(texto)=>setDescricao(texto)}
-                        value={descricao}>
+                        value={descricao||''}>
                 </TextInput>
                 <TouchableOpacity style={styles.button} onPress={()=>{saveOperacao()}}>
                     <Text style={styles.buttonText}>Salvar</Text>
