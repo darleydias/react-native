@@ -5,6 +5,7 @@ import OperacaoList from "./components/OperacaoList";
 import OperacaoEdit from "./components/OperacaoEdit";
 import OperacaoAdd from "./components/OperacaoAdd"
 import OperacaoDelete from "./components/OperacaoDelete";
+import OperacaoShow from "./components/OperacaoShow";
 
 const AppStack = createStackNavigator();
 
@@ -21,9 +22,11 @@ const Routes = () => {
                     <AppStack.Screen name="operacoesEdit" component={OperacaoEdit}></AppStack.Screen>
                     <AppStack.Screen name="operacoesAdd" component={OperacaoAdd}></AppStack.Screen>
                     <AppStack.Screen name="operacoesDelete" component={OperacaoDelete}></AppStack.Screen>
+                    <AppStack.Screen name="operacoesShow" component={OperacaoShow}></AppStack.Screen>
                 </AppStack.Navigator>
             </NavigationContainer>
         </>
+        // Teste
     )
 }
 
