@@ -6,6 +6,7 @@ import OperacaoEdit from "./components/OperacaoEdit";
 import OperacaoAdd from "./components/OperacaoAdd"
 import OperacaoDelete from "./components/OperacaoDelete";
 import OperacaoShow from "./components/OperacaoShow";
+import Login from "./components/Login";
 
 const AppStack = createStackNavigator();
 
@@ -17,16 +18,17 @@ const Routes = () => {
                 <AppStack.Navigator screenOptions={{ headerShown: false }}>
                     
                     {/* <AppStack.Screen name="operacaoList" component={ProductList}></AppStack.Screen> */}
+                    {/* <AppStack.Screen name="login" component={Login}></AppStack.Screen> */}
                     <AppStack.Screen name="operacoesList" component={OperacaoList}></AppStack.Screen>
                     <AppStack.Screen name='home' component={Home} ></AppStack.Screen>
                     <AppStack.Screen name="operacoesEdit" component={OperacaoEdit}></AppStack.Screen>
                     <AppStack.Screen name="operacoesAdd" component={OperacaoAdd}></AppStack.Screen>
                     <AppStack.Screen name="operacoesDelete" component={OperacaoDelete}></AppStack.Screen>
                     <AppStack.Screen name="operacoesShow" component={OperacaoShow}></AppStack.Screen>
+                    
                 </AppStack.Navigator>
             </NavigationContainer>
         </>
-        // Teste
     )
 }
 

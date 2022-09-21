@@ -1,12 +1,11 @@
 import axios from "axios"
 
 
-class OperacoesServices{
+class AuthServices{
     
-    async getOperacoes(){
+    async login(credential){
         try {
-            // return await (await axios.get("https://catenampmg.herokuapp.com/operacoes/"));
-            return await (await axios.get("http://localhost:3001/operacoes/"));
+            return await (await axios.post("localhost:3001/login/",credential));
         } catch (err) {
             console.log(err)
             return err.response.status
@@ -14,7 +13,6 @@ class OperacoesServices{
     }
     async getOperacaoByCodigo(codigo){
         try {
-            // return await(await axios.get("https://catenampmg.herokuapp.com/operacoes/"+ codigo)).data[0]            
             return await(await axios.get("http://localhost:3001/operacoes/"+ codigo)).data[0]            
         } catch (error) {
             console.log(error)
@@ -23,7 +21,6 @@ class OperacoesServices{
     async updateOperacao(operacao){
 
         try {
-            // return await(await axios.put("https://catenampmg.herokuapp.com/operacoes/"+ operacao.codigo,operacao))
             return await(await axios.put("http://localhost:3001/operacoes/"+ operacao.codigo,operacao))
         } catch (error) {
             console.log(error)
@@ -32,7 +29,6 @@ class OperacoesServices{
     }
     async deleteOperacao(codigo){
         try {
-            //   return await(await axios.delete("https://catenampmg.herokuapp.com/operacoes/"+ codigo))
               return await(await axios.delete("http://localhost:3001/operacoes/"+ codigo))
         } catch (error) {
             console.log(error)
@@ -41,11 +37,10 @@ class OperacoesServices{
     }
     async createOperacao(operacao){
         try {
-            // return await axios.post("https://catenampmg.herokuapp.com/operacoes/",operacao)            
             return await axios.post("http://localhost:3001/operacoes/",operacao)            
         } catch (error) {
             console.log(error)
         }
     }
 }
-export default new OperacoesServices()
+export default new AuthServices()
