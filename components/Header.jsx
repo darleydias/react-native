@@ -9,7 +9,7 @@ export default function Header(props) {
     const navigation = useNavigation()
 
     function goToHome() {
-        navigation.navigate('operacoesList')
+        navigation.navigate('comarcaList')
     }
 
     return (
