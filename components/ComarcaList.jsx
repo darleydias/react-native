@@ -4,26 +4,34 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import ComarcasServices from "../services/ComarcasServices";
 import Header from "./Header";
 import {Feather as Icon} from "@expo/vector-icons"
+import ModalConfirm from "./ModalConfirm";
 
 function ComarcaList() {
 
     const [comarcas,setComarcas] = useState([])
     const navigation =useNavigation();
     const reload = useIsFocused()
-
-
+    const [confirma,setConfirma] = useState(false)
+    const [modalVisible,setModalVisible] = useState(false)
+    const [codigo,setCodigo] = useState("")
     useEffect(()=>{
         ComarcasServices.getComarcas().then(res=>{
             setComarcas(res.data)
         })
     },[reload])
 
+    function deleteTest(cod){
+        setCodigo(cod)
+        setModalVisible(true)
+    }
+
     function handlerEditPress(codigo){
         let title = "Editando comarca"
         navigation.navigate("comarcaEdit",{title,codigo})
     }
     function handlerDeletePress(codigo){
-        navigation.navigate("comarcaDelete",{codigo})
+        setModalVisible(false)
+        navigation.navigate("comarcaDelete",{codigo})   
     }
     function handlerMostrarPress(codigo){
         let title = "Exibindo comarca"
@@ -43,27 +51,34 @@ function ComarcaList() {
             {
                 comarcas.map((comarca,index)=>{
                     return(
-                        <View key={index} style={styles.container}>
+                            <View key={index} style={styles.container}>
                             <View  style={styles.action}>
-                                <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(comarca.codigo)} >
-                                    <Text key={index} style={styles.textItem}>{comarca.nome}</Text>
-                                </TouchableOpacity>
-                                <View style={styles.action}>
-                                    <TouchableOpacity style={styles.editButton} onPress={() => handlerEditPress(comarca.codigo)} >
-                                        <Icon name="edit" size={20} color='#33525c'></Icon>
-                                    </TouchableOpacity >
-                                    <TouchableOpacity style={styles.editButton} onPress={() => handlerDeletePress(comarca.codigo)}>
-                                        <Icon name="delete" size={20} color='#33525c'></Icon>
-                                    </TouchableOpacity>    
+                                    <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(comarca.codigo)} >
+                                        <Text key={index} style={styles.textItem}>{comarca.nome}</Text>
+                                    </TouchableOpacity>
+                                    <View style={styles.action}>
+                                        <TouchableOpacity style={styles.editButton} onPress={() => handlerEditPress(comarca.codigo)} >
+                                            <Icon name="edit" size={20} color='#33525c'></Icon>
+                                        </TouchableOpacity >
+                                        <TouchableOpacity style={styles.editButton} onPress={() => deleteTest(comarca.codigo)}>
+                                            <Icon name="delete" size={20} color='#33525c'></Icon>
+                                        </TouchableOpacity>    
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+ 
                     )
                 })
             }
         </ScrollView>
         
-        
+        <ModalConfirm
+            onClose={()=>{setModalVisible(false)}}
+            modalVisible={modalVisible}
+            handlerDeletePress = {()=>{handlerDeletePress(codigo)}}
+            codigo={codigo}
+        />
+
         <TouchableOpacity style={styles.button} onPress={() => goToAdd()}>
                 <Text style={styles.buttonText}>Novo</Text>
         </TouchableOpacity>

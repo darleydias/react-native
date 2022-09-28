@@ -31,8 +31,8 @@ export default function ComarcaEdit() {
             nome:nome,
             descricao:descricao
         }
-        setMensagem(ComarcasServices.updateComarca(comarca))
-        navigation.navigate("comarcasList")
+        let response = await ComarcasServices.updateComarca(comarca).data;
+        navigation.navigate("comarcaList")
     }    
   
     return (

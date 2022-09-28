@@ -1,46 +1,17 @@
 import axios from "axios"
-
+import Asyncstorage from "@react-native-async-storage/async-storage"
 
 class AuthServices{
     
-    async login(credential){
-        try {
-            return await (await axios.post("localhost:3001/login/",credential));
-        } catch (err) {
-            console.log(err)
-            return err.response.status
-        }
+    login(credential){
+        return (axios.post("https://catenampmg.herokuapp.com/login/",credential));
     }
-    async getOperacaoByCodigo(codigo){
-        try {
-            return await(await axios.get("http://localhost:3001/operacoes/"+ codigo)).data[0]            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    async updateOperacao(operacao){
-
-        try {
-            return await(await axios.put("http://localhost:3001/operacoes/"+ operacao.codigo,operacao))
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
-    async deleteOperacao(codigo){
-        try {
-              return await(await axios.delete("http://localhost:3001/operacoes/"+ codigo))
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
-    async createOperacao(operacao){
-        try {
-            return await axios.post("http://localhost:3001/operacoes/",operacao)            
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    setLoggedUser(token_user){
+        Asyncstorage.setItem("token_user",token_user);
+    }   
+    async getLoggedUser(){
+        let user_token = await Asyncstorage.getItem("token_user");
+        return user_token;
+    } 
 }
 export default new AuthServices()

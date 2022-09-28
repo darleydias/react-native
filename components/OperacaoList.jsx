@@ -15,12 +15,8 @@ function OperacaoList() {
 
     useEffect(()=>{
         OperacoesServices.getOperacoes().then(res=>{
-            if(Array.isArray(res)){
-                console.log("é um array")
-            }else{
-                console.log("nãoé um array")
-            }
             setOperacoes(res.data)
+
         })
     },[reload])
 
