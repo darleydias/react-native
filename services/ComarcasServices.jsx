@@ -12,9 +12,9 @@ class ComarcasServices{
             return err.response.status
         }
     }
-    async getComarcaByCodigo(codigo){
+    async getComarcaById(id){
         try {
-            return await(await api.get("comarcas/"+ codigo)).data[0]            
+            return await(await api.get("comarcas/"+ id)).data[0]
             // return await(await axios.get("https://darley-12797.herokuapp.com/comarcas/"+ codigo)).data[0]            
             // return await(await axios.get("http://localhost:3001/comarcas/"+ codigo)).data[0]            
         } catch (error) {
@@ -22,9 +22,9 @@ class ComarcasServices{
         }
     }
     async updateComarca(comarca){
-
         try {
-            return await(await api.put("comarcas/"+ comarca.codigo,comarca))
+
+            return await(await api.put("comarcas/"+ comarca.id,comarca))
             // return await(await axios.put("https://darley-12797.herokuapp.com/comarcas/"+ comarca.codigo,comarca))
             // return await(await axios.put("http://localhost:3001/comarcas/"+ comarca.codigo,comarca))
         } catch (error) {
@@ -32,9 +32,9 @@ class ComarcasServices{
         }
         
     }
-    async deleteComarca(codigo){
+    async deleteComarca(id){
         try {
-              return await(await api.delete("comarcas/"+ codigo))
+              return await(await api.delete("comarcas/"+ id))
             //   return await(await axios.delete("https://darley-12797.herokuapp.com/comarcas/"+ codigo))
             //   return await(await axios.delete("http://localhost:3001/comarcas/"+ codigo))
         } catch (error) {

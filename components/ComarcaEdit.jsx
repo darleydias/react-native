@@ -7,26 +7,28 @@ import ComarcasServices from "../services/ComarcasServices";
 export default function ComarcaEdit() {
 
     const navigation = useNavigation();
+
+    const [id,setId] = useState("")
     const [codigo,setCodigo] = useState("")
     const [nome,setNome] = useState("")
     const [descricao,setDescricao] = useState("")
 
-    const [mensagem,setMensagem] = useState("")
     const route = useRoute()
 
-
     useEffect(()=>{
-        const comarca = ComarcasServices.getComarcaByCodigo(route.params.codigo)
+        const comarca = ComarcasServices.getComarcaById(route.params.id)
         .then(comarca=>{
+            setId(comarca.id)
             setCodigo(comarca.codigo)
             setNome(comarca.nome)
             setDescricao(comarca.descricao)
+
         })
-        
     },[])
 
     async function saveComarca(){   
         const comarca={
+            id:id,
             codigo:codigo,
             nome:nome,
             descricao:descricao

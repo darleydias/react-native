@@ -13,9 +13,8 @@ export default function ComarcaShow() {
     const [descricao,setDescricao] = useState("")
     const route = useRoute()
 
-
     useEffect(()=>{
-        const comarca = ComarcasServices.getComarcaByCodigo(route.params.codigo)
+        const comarca = ComarcasServices.getComarcaById(route.params.id)
         .then(comarca=>{
             setCodigo(comarca.codigo)
             setNome(comarca.nome)

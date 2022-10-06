@@ -11,7 +11,6 @@ export default function Home() {
         <>
         <Header title="Gestao de produtos"></Header>
         <View>
-
         </View>
         </>
     )

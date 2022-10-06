@@ -12,7 +12,7 @@ const ModalComponent=(props)=>{
                                 <Text style={styles.modalText}>{ props.msg }</Text>
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={() => props.onClose()}                        >
+                                    onPress={() => props.onClose()}>
                                     <Text style={styles.textStyle}>Fechar</Text>
                                 </Pressable>
                               </View>

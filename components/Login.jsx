@@ -25,7 +25,6 @@ export default function Login(){
                 AuthServices.setLoggedUser(response.data)
                 navigation.navigate("comarcaList")
             },(error)=>{
-                
                 const erro = error.message.trim()
                 if(erro==="Request failed with status code 404"){
                     setMsg("Usuário inexistente")

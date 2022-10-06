@@ -9,6 +9,7 @@ export default function Header(props) {
     const navigation = useNavigation()
 
     function goToHome() {
+        console.log("entrou")
         navigation.navigate('comarcaList')
     }
 

@@ -11,7 +11,6 @@ function ComarcaList() {
     const [comarcas,setComarcas] = useState([])
     const navigation =useNavigation();
     const reload = useIsFocused()
-    const [confirma,setConfirma] = useState(false)
     const [modalVisible,setModalVisible] = useState(false)
     const [codigo,setCodigo] = useState("")
     useEffect(()=>{
@@ -25,22 +24,22 @@ function ComarcaList() {
         setModalVisible(true)
     }
 
-    function handlerEditPress(codigo){
+    function handlerEditPress(id){
         let title = "Editando comarca"
-        navigation.navigate("comarcaEdit",{title,codigo})
+        navigation.navigate("comarcaEdit",{title,id})
     }
-    function handlerDeletePress(codigo){
+    function handlerDeletePress(id){
         setModalVisible(false)
-        navigation.navigate("comarcaDelete",{codigo})   
+        navigation.navigate("comarcaDelete",{id})   
     }
-    function handlerMostrarPress(codigo){
+    function handlerMostrarPress(id){
         let title = "Exibindo comarca"
-        navigation.navigate("comarcaShow",{title,codigo})
+        navigation.navigate("comarcaShow",{title,id})
     }
     function goToAdd() {
         let action = true
         let title="Adicionando comarca"
-        navigation.navigate('comarcaAdd', {title,action})
+        navigation.navigate('comarcaAdd', {title})
     }
 
     return (
@@ -53,14 +52,14 @@ function ComarcaList() {
                     return(
                             <View key={index} style={styles.container}>
                             <View  style={styles.action}>
-                                    <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(comarca.codigo)} >
+                                    <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(comarca.id)} >
                                         <Text key={index} style={styles.textItem}>{comarca.nome}</Text>
                                     </TouchableOpacity>
                                     <View style={styles.action}>
-                                        <TouchableOpacity style={styles.editButton} onPress={() => handlerEditPress(comarca.codigo)} >
+                                        <TouchableOpacity style={styles.editButton} onPress={() => handlerEditPress(comarca.id)} >
                                             <Icon name="edit" size={20} color='#33525c'></Icon>
                                         </TouchableOpacity >
-                                        <TouchableOpacity style={styles.editButton} onPress={() => deleteTest(comarca.codigo)}>
+                                        <TouchableOpacity style={styles.editButton} onPress={() => deleteTest(comarca.id)}>
                                             <Icon name="delete" size={20} color='#33525c'></Icon>
                                         </TouchableOpacity>    
                                     </View>
@@ -90,7 +89,9 @@ function ComarcaList() {
     scrollContainer: {
         flex: 1,
         width: '98%',
-        margin:2
+        margin:2,
+        marginBottom:0,
+        padding:0
     },
     container: {
         backgroundColor: '#fff',
@@ -132,7 +133,7 @@ function ComarcaList() {
         flexDirection: "row",
         textAlign:"left",
         justifyContent:'space-between',
-        marginTop:1,
+        marginTop:1
     }
 
 })

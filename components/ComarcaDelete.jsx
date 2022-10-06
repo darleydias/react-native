@@ -8,7 +8,7 @@ export default function ComarcaDelete() {
     const route = useRoute()
    
     useEffect(()=>{
-        ComarcasServices.deleteComarca(route.params.codigo)
+        ComarcasServices.deleteComarca(route.params.id)
         .then(()=>navigation.navigate("comarcaList"))
     },[])
 
