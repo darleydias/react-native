@@ -1,11 +1,13 @@
+import { useContext} from 'react' 
 import { StyleSheet, Text, View } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import {AuthContext} from '../contexts/Auth'
 
 export default function Header(props) {
 
-
+    const {login} = useContext(AuthContext)
+    const {funcao} = useContext(AuthContext)
     const navigation = useNavigation()
 
     function goToHome() {
@@ -19,13 +21,13 @@ export default function Header(props) {
                 <SimpleLineIcons name='home' size={20} color='white' onPress={() => goToHome()}>
 
                 </SimpleLineIcons>
-                <Text style={style.headerText}>{props.title}</Text>
+                <Text style={style.headerText}>{props.title}</Text><Text style={style.headerLogin}>{login[0].toUpperCase()+ login.substring(1)}{funcao}</Text>
+                
             </View>
         </>
     )
 
 }
-
 
 const style = StyleSheet.create({
 
@@ -41,6 +43,12 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         paddingLeft: 20
+    },
+    headerLogin: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+        paddingLeft: 80
     }
 
 })

@@ -1,39 +1,55 @@
-import { StyleSheet,Text, ToucheableOpacity,View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Header  from "./Header";
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+import Header from './Header';
+import Recon from './Recon'
+import Operacao from './Operacao';
+import Movimentacao from './Movimentacao';
+import AuthProvider from '../contexts/Auth';
 
-export default function Home() {
-    const navigation = useNavigation();
-    function GoToProductList(){
-        navigation.navigate("productList")
-    }
+
+function Inicio() {
     return (
-        <>
-        <Header title="Gestao de produtos"></Header>
-        <View>
-        </View>
-        </>
-    )
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Inicio</Text>
+      </View>
+    );
+  }
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem label="x" onPress={() => props.navigation.closeDrawer()}/>
+    </DrawerContentScrollView>
+  );
 }
 
-const style = StyleSheet.create({
-    container: {
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    button: {
-        margin:10,
-        height:60,
-        backgroundColor:"#33525c",
-        borderRadius:10,
-        paddingHorizontal:24,
-        fontSize:16,
-        alignItems:"center",
-        justifyContent:"center"
+const Drawer = createDrawerNavigator();
 
-    },
-    buttonText: {
-        color:"#fff",
-        fontWeight:"bold"
-    },
-})
+function MyDrawer() {
+  return (
+    <>
+        <Header title="Inicio"/>
+    <Drawer.Navigator useLegacyImplementation drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="inicio" component={Inicio} />
+      <Drawer.Screen name="recon" component={Recon} />
+      <Drawer.Screen name="operacao" component={Operacao} />
+      <Drawer.Screen name="movimentacao" component={Movimentacao} />
+    </Drawer.Navigator>
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+        <>
+             <MyDrawer />
+        </>
+  );
+}

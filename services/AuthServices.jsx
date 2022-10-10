@@ -8,7 +8,6 @@ class AuthServices{
         return (axios.post("http://localhost:3000/login/",credential));
     }
     setLoggedUser(token_user){
-        //console.log(token_user.token)
         Asyncstorage.setItem("token_user",token_user.token);
         Asyncstorage.setItem("refreshToken",token_user.refreshToken);
     }   

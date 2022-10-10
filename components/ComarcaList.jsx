@@ -1,13 +1,15 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ComarcasServices from "../services/ComarcasServices";
 import Header from "./Header";
 import {Feather as Icon} from "@expo/vector-icons"
 import ModalConfirm from "./ModalConfirm";
 
-function ComarcaList() {
 
+function ComarcaList({route}) {
+
+    
     const [comarcas,setComarcas] = useState([])
     const navigation =useNavigation();
     const reload = useIsFocused()
@@ -45,7 +47,6 @@ function ComarcaList() {
     return (
         <>
         <Header title="Lista de comarcas"/>
-        
         <ScrollView style={styles.scrollContainer}>
             {
                 comarcas.map((comarca,index)=>{

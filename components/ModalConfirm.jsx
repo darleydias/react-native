@@ -5,8 +5,7 @@ import { Modal,StyleSheet,Text,Pressable,View,TouchableOpacity } from "react-nat
 const ModalConfirm=(props)=>{
     console.log()
     return(
-        <>
-        <View style={styles.centeredView}>
+
                     <Modal transparent={true} visible={props.modalVisible}  animationType="fade">
                     <View style={styles.centeredView}>
                             <View style={styles.modalView}>
@@ -22,8 +21,7 @@ const ModalConfirm=(props)=>{
                               </View>
                         </View>
                     </Modal>
-        </View>
-        </>
+    
     )
 } 
 const styles = StyleSheet.create({

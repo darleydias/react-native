@@ -1,9 +1,10 @@
 import HeaderExt from "./HeaderExt"
-import { useState } from "react"
+import { useState,useContext} from "react"
 import AuthServices from "../services/AuthServices"
 import { StyleSheet,Text, TextInput, TouchableOpacity} from "react-native";
 import { useNavigation} from "@react-navigation/native";
 import ModalComponent from "./ModalComponent";
+import { AuthContext } from '../contexts/Auth'
 
 export default function Login(){
 
@@ -13,6 +14,7 @@ export default function Login(){
     const [token,setToken] = useState("")
     const [msg,setMsg] = useState("")
     const [modalVisible,setModalVisible] = useState(false)
+    const {fillLogin} = useContext(AuthContext)
 
 
     function GoToLogin(){
@@ -23,7 +25,8 @@ export default function Login(){
             AuthServices.login(credential)
             .then((response)=>{
                 AuthServices.setLoggedUser(response.data)
-                navigation.navigate("comarcaList")
+                fillLogin(login,response.data.funcao,response.data.email,response.data.setor)   
+                navigation.navigate("home")
             },(error)=>{
                 const erro = error.message.trim()
                 if(erro==="Request failed with status code 404"){

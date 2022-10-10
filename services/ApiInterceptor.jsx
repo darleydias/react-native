@@ -1,6 +1,7 @@
 import axios from "axios";
 import AuthServices from "./AuthServices";
 
+
 const  instance = axios.create({
     // baseURL:"https://catenampmg.herokuapp.com/",
     baseURL:"http://localhost:3000/",
@@ -9,41 +10,26 @@ const  instance = axios.create({
     }
 })
 
-function testaLogin(token){ //testa se o token no banco é igual ao token local e se ainda não venceu
-    const loggedUser = AuthServices.getRemoteToken(token)
-    .then((result)=>{
-                    let dataAtual=new Date()
-                    let dtExpiracao = new Date(result.data[0].expireIn)
-                    let dtExpFormatada = (dtExpiracao.getDate() + " " + dtExpiracao.getHours() + ":" + dtExpiracao.getMinutes() + ":" + dtExpiracao.getSeconds()); 
-                    let atualFormatada = (dataAtual.getDate() + " " + dataAtual.getHours() + ":" + dataAtual.getMinutes() + ":" + dataAtual.getSeconds()); 
-                    console.log(dataAtual.getTime()) 
-                    console.log(dtExpiracao.getTime()) 
-                    let expirado=false;
-                    if(dataAtual.getTime() > dtExpiracao.getTime()-20){
-                        expirado=false;
-                    }
-                    if(result.data[0].token===token && expirado!=true){
-                        console.log("logado")
-                        return true
-                    }else{
-                        console.log("expirado")
-                        credentials={'login':result.data[0].login,'token':result.data[0].token}
-                        AuthServices.renew(credentials)
-                        return false
-                    }
-                    
-                    })
-}
-
-instance.interceptors.request.use(async (config)=>{
+// Adicionando um interceptor de Request
+instance.interceptors.request.use(async function (config) {
     let tokens= await AuthServices.getLoggedUser()
-
     config.headers['auth']=tokens.user_token
     config.headers['refresh']=tokens.refreshToken
-    //testaLogin(token)
     return config;
+}, function (error) {
+    Console.log(error)
+    return Promise.reject(error);
+});
+// Adicionando um interceptor de Response
+instance.interceptors.response.use(function (response) {
+    if(response.status===203){
+        const token_user = {'token':response.data.token,'refreshToken':response.data.refresh}
+        AuthServices.setLoggedUser(token_user)
+        //voltar para list
 
-},(error)=>{
-    Promise.reject(error)
-})
+    }
+    return response;
+  }, function (error) {
+    return Promise.reject(error);
+});
 export default instance;
