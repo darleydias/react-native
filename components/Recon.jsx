@@ -7,6 +7,7 @@ import {Feather as Icon} from "@expo/vector-icons"
 import ModalConfirm from "./ModalConfirm";
 
 
+
 function Recon() {
 
     const navigation =useNavigation();
@@ -21,7 +22,7 @@ function Recon() {
 
     return (
         <>
- <View style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.textItem}>Recon</Text>
     </View>
         </>

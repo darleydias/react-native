@@ -7,7 +7,7 @@ import {Feather as Icon} from "@expo/vector-icons"
 import ModalConfirm from "./ModalConfirm";
 
 
-function Recon() {
+function Configuracao() {
 
     const navigation =useNavigation();
     const reload = useIsFocused()
@@ -20,7 +20,7 @@ function Recon() {
     return (
      <>
         <View style={styles.container}>
-        <Text style={styles.textItem}>Operação</Text>
+        <Text style={styles.textItem}>Configuracao</Text>
         </View>
      </>
     )
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
     }
 
 })
-export default Recon
+export default Configuracao
