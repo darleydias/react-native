@@ -15,6 +15,7 @@ import Configuracao from './Configuracao'
 import Icon from "react-native-vector-icons/Ionicons";
 import { FaUserSecret,FaHome,FaUsersCog,FaPeopleArrows,FaCog} from 'react-icons/fa';
 import { Card} from 'react-native-elements'
+import ReconShow from './ReconShow';
 
 function Inicio(){
 
@@ -94,6 +95,7 @@ function MyDrawer({ navigation }) {
       <Drawer.Screen name="Operacao" component={Operacao} options={{drawerIcon:config=><FaUsersCog size={23} color={'#666'} name={'FaUsersCog'}></FaUsersCog>}}/>
       <Drawer.Screen name="Movimentacao" component={Movimentacao} options={{drawerIcon:config=><FaPeopleArrows size={23} color={'#666'} name={'FaPeopleArrows'}></FaPeopleArrows>}}/>
       <Drawer.Screen name="Configuracao" component={Configuracao} options={{drawerIcon:config=><FaCog size={23} color={'#666'} name={'FaPeopleArrows'}></FaCog>}}/>
+      <Drawer.Screen name="Mostra Recon" component={ReconShow}/>
     </Drawer.Navigator> 
     </>
   );

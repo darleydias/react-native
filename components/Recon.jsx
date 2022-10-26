@@ -1,33 +1,69 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useEffect, useState} from "react";
+import { useEffect, useState,useContext} from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import ComarcasServices from "../services/ComarcasServices";
-import Header from "./Header";
-import {Feather as Icon} from "@expo/vector-icons"
 import ModalConfirm from "./ModalConfirm";
+import { AuthContext } from '../contexts/Auth'
 
 
 
-function Recon() {
+function Recon({route}) {
 
+    const [recons,setRecons] = useState([])
     const navigation =useNavigation();
     const reload = useIsFocused()
     const [modalVisible,setModalVisible] = useState(false)
-    const [codigo,setCodigo] = useState()
-
+    const {fillTitulo} = useContext(AuthContext)
+    const {titulo} = useContext(AuthContext)
+ 
     useEffect(()=>{
-
+        let idUsuario = 1
+        // ReconServices.getReconByIdUsuario(idUsuario)
+        // // ReconServices.getRecon(idUsuario)
+        // .then((response)=>{
+        //     setRecons(response)
+        // })
+        var mockup = [
+            {'id':4,'ponto_id':'01 - Casa do Alvo','dataPrev':'2022-10-18 13:20:52'},
+            {'id':5,'ponto_id':'18 - Escritório','dataPrev':'2022-10-18 00:20:52'},
+            {'id':6,'ponto_id':'3 - Oficina','dataPrev':'2022-10-18 17:34:00'}
+        ]
+        setRecons(mockup)
+        fillTitulo('Lista de Recons') 
     },[reload])
 
+    function handlerMostrarPress(id){
+        // navigation.navigate("Mostra Recon",{id})
+        navigation.navigate("Mostra Recon",{id})
+    }
 
     return (
         <>
-    <View style={styles.container}>
-      <Text style={styles.textItem}>Recon</Text>
-    </View>
+        <ScrollView style={styles.scrollContainer}>
+            {
+                recons.map((recon,index)=>{
+                    return(
+                            <View key={index} style={styles.container}>
+                                <View  style={styles.action}>
+                                        <TouchableOpacity style={styles.editButton} onPress={() => handlerMostrarPress(recon.id)} >
+                                            <Text key={index} style={styles.textItem}>{ recon.ponto_id }{recon.dataPrev.toString()} </Text> 
+                                            {/* {((recon.dataPrev.getDate())) + "/" + ((recon.dataPrev.getMonth())) + "/" + recon.dataPrev.getFullYear()}*/}
+                                        </TouchableOpacity>
+                                </View>
+                            </View>
+                    )
+                })
+            }
+        </ScrollView>
+        
+
+        <TouchableOpacity style={styles.button} onPress={() => goToAdd()}>
+                <Text style={styles.buttonText}>Novo</Text>
+        </TouchableOpacity>
+
         </>
     )
-}const styles = StyleSheet.create({
+}
+const styles = StyleSheet.create({
 
     scrollContainer: {
         flex: 1,
@@ -42,7 +78,7 @@ function Recon() {
         width: '100%'
     },
     textItem: {
-        fontSize: 13,
+        fontSize: 15,
         margin:0,
         alignContent:"flex-start"
     },

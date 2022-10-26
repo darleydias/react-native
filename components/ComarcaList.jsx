@@ -85,7 +85,8 @@ function ComarcaList({route}) {
 
         </>
     )
-}const styles = StyleSheet.create({
+}
+const styles = StyleSheet.create({
 
     scrollContainer: {
         flex: 1,

@@ -8,11 +8,12 @@ export default function Header(props) {
 
     const {login} = useContext(AuthContext)
     const {funcao} = useContext(AuthContext)
+    const {titulo} = useContext(AuthContext)
     const navigation = useNavigation()
 
     function goToHome() {
         console.log("entrou")
-        navigation.navigate('comarcaList')
+        navigation.navigate('Início')
     }
 
     return (
@@ -21,7 +22,7 @@ export default function Header(props) {
                 <SimpleLineIcons name='home' size={20} color='white' onPress={() => goToHome()}>
 
                 </SimpleLineIcons>
-                <Text style={style.headerText}>{props.title}</Text><Text style={style.headerLogin}>{login[0].toUpperCase()+ login.substring(1)}{funcao}</Text>
+                <Text style={style.headerText}>{titulo}</Text><Text style={style.headerLogin}>{login[0].toUpperCase()+ login.substring(1)}{funcao}</Text>
                 
             </View>
         </>

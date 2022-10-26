@@ -15,6 +15,7 @@ export default function Login(){
     const [msg,setMsg] = useState("")
     const [modalVisible,setModalVisible] = useState(false)
     const {fillLogin} = useContext(AuthContext)
+    const {fillTitulo} = useContext(AuthContext)
 
 
     function GoToLogin(){
@@ -25,7 +26,8 @@ export default function Login(){
             AuthServices.login(credential)
             .then((response)=>{
                 AuthServices.setLoggedUser(response.data)
-                fillLogin(login,response.data.funcao,response.data.email,response.data.setor)   
+                fillLogin(login,response.data.funcao,response.data.email,response.data.setor)  
+                fillTitulo('Home') 
                 navigation.navigate("home")
             },(error)=>{
                 const erro = error.message.trim()
