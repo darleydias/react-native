@@ -8,6 +8,7 @@ function AuthProvider({children}){
     const [funcao,setFuncao] = useState('')
     const [email,setEmail] = useState('')
     const [setor,setSetor] = useState('')
+    const [titulo,setTitulo] = useState('')
     // Valores prontos para serem usados (funcao,email,setor)
     function fillLogin(usuario,funcao,email,setor){
         setLogin(usuario)
@@ -15,9 +16,12 @@ function AuthProvider({children}){
         setEmail(email)
         setSetor(setor)
     }
+    function fillTitulo(titulo){
+        setTitulo(titulo)
+    }
     
     return(
-        <AuthContext.Provider value={{'login':login,fillLogin,funcao,email,setor}}>
+        <AuthContext.Provider value={{'login':login,fillLogin,funcao,email,setor,fillTitulo,titulo}}>
             {children}
         </AuthContext.Provider>
     )

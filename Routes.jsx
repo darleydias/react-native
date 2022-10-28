@@ -8,6 +8,8 @@ import ComarcaAdd from "./components/ComarcaAdd";
 import ComarcaDelete from "./components/ComarcaDelete";
 import ComarcaShow from "./components/ComarcaShow";
 
+
+
 import OperacaoList from "./components/OperacaoList";
 import OperacaoEdit from "./components/OperacaoEdit";
 import OperacaoAdd from "./components/OperacaoAdd"
@@ -15,6 +17,11 @@ import OperacaoDelete from "./components/OperacaoDelete";
 import OperacaoShow from "./components/OperacaoShow";
 import Login from "./components/Login";
 import Home from "./components/Home";
+
+// import Recon from "./components/Recon";
+// import Operacao from "./components/Operacao"
+// import Movimentacao from "./components/Movimentacao";
+// import Configuracao from "./components/Configuracao";
 
 
 
@@ -35,6 +42,11 @@ const Routes = () => {
                     <AppStack.Screen name="comarcaAdd" component={ComarcaAdd}></AppStack.Screen>
                     <AppStack.Screen name="comarcaDelete" component={ComarcaDelete}></AppStack.Screen>
                     <AppStack.Screen name="comarcaShow" component={ComarcaShow}></AppStack.Screen>
+                    
+                    {/* 
+                    <AppStack.Screen name="operacao" component={Operacao}></AppStack.Screen>
+                    <AppStack.Screen name="movimentacao" component={Movimentacao}></AppStack.Screen>
+                    <AppStack.Screen name="configuracao" component={Configuracao}></AppStack.Screen> */}
                     {/* <AppStack.Screen name="recon" component={Recon}></AppStack.Screen> */}
 
                     {/* <AppStack.Screen name='home' component={Home} ></AppStack.Screen>

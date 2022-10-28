@@ -21,6 +21,9 @@ export default function ReconShow() {
     const [alvo_id,setAlvoId] = useState("")
     const [nrPonto,setNrPonto] = useState("")
     const [alvo,setAlvo] = useState("")
+    const [complementoEndereco,setComplementoEndereco] = useState("")
+    const [shouldShow, setShouldShow] = useState(false);
+
     
     const [dadosPonto,setDadosPonto] = useState("")
     const route = useRoute()
@@ -66,95 +69,117 @@ export default function ReconShow() {
             return <FaRegClipboard size={14} color='#33525c'></FaRegClipboard>
         }
     }
+    function mostrar(mostrar){
+        if(mostrar==1){setShouldShow(true)}
+        if(mostrar==0){setShouldShow(false)}
+    }
+
     return (
         <>
+        <View style={styles.container}>
         <View style={styles.inputContainer}>
-
-               <Text style={styles.label}>Ponto {nrPonto}</Text>
+               <Text style={styles.label1}>Ponto {nrPonto}</Text>
                <Text style={styles.label}>Alvo: {alvo}</Text>
                <Text style={styles.txt}>{dadosPonto}</Text>
-
-
                <SafeAreaView style={styles.containerRadio}>
                     <View style={styles.secao1}>
                         <RadioButton
                             value="first"
                             status={ checked === 'first' ? 'checked' : 'unchecked' }
-                            onPress={() => setChecked('first')}
+                            onPress={() => {
+                                setChecked('first')
+                                mostrar(0)
+                            }}
                         />
                     </View>
                     <View style={styles.secao2}>
-                    <Text style={styles.txt}>Correto</Text>
+                    <Text style={styles.txtRadio}>Correto</Text>
                     </View>      
                     <View style={styles.secao3}>
                         <RadioButton
                             value="second"
                             status={ checked === 'second' ? 'checked' : 'unchecked' }
-                            onPress={() => setChecked('second')}
+                            onPress={() => {
+                                setChecked('second')
+                                mostrar(1)
+                            }}
                         />
                     </View>      
                     <View style={styles.secao4}>
-                        <Text style={styles.txt}>Incorreto</Text>
+                        <Text style={styles.txtRadio}>Incorreto</Text>
                     </View>    
                </SafeAreaView>  
+               {shouldShow ? (
+                 <TextInput  
+                    style={styles.input2}
+                    multiline={true}
+                    numberOfLines={4}
+                    placeholder="Adicionar informações sobre endereço" 
+                    clearButtonMode="always"
+                    onChangeText={(texto)=>setComplementoEndereco(texto)}
+                    value={complementoEndereco||''}>
+                </TextInput>
+               ) : null}
+
                <Text style={styles.label}>Situação do Recon</Text>
                <View>
                     <Text style={styles.txt}>{testStatus(status)} {status}</Text>
                </View>
-               <Text style={styles.label}>Data Prevista    -          Data Real</Text>
+               <Text style={styles.label}>Data Prevista               Data Real</Text>
                <View>
                      <Text style={styles.txt}>{dataPrev}      {dataReal}</Text>
                </View>
                          
         </View>
         <View style={styles.inputContainer}>
-               
-               
-               <View>
-                     <Text style={styles.txt}>{ponto_id}</Text>
-               </View>
-                <Text style={styles.label}>Confirmar endereço</Text>
-               
-                <TextInput 
-                        style={styles.input}
-                        placeholder="digite o código" 
-                        clearButtonMode="always"
-                        onChangeText={(texto)=>setDatPrev(texto)}
-                        value={dataPrev||''}>
-                </TextInput>
-                <TextInput 
-                        style={styles.input}
-                        placeholder="digite o Nome" 
-                        clearButtonMode="always"
-                        onChangeText={(texto)=>setStatus(texto)}
-                        value={status||''}>
-                </TextInput>
-                <TextInput 
-                        style={styles.input}
-                        placeholder="digite a descrção" 
-                        clearButtonMode="always"
-                        onChangeText={(texto)=>setPonto_id(texto)}
-                        value={ponto_id||''}>
-                </TextInput>
-                <TouchableOpacity style={styles.button} onPress={()=>{saveComarca()}}>
-                    <Text style={styles.buttonText}>Salvar</Text>
-                </TouchableOpacity>
-        </View>
+                <Text style={styles.label}>Orientações</Text>
+                <Text style={styles.label}>Elaborar mapas, fotos ou croquis, pontos de referencia</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => fechar()}>
-                    <Text style={styles.buttonText}>Fechar</Text>
+                <Text style={styles.label}>Descrição generalizada</Text>
+                <TextInput 
+                        style={styles.txtArea}
+                        multiline={true}
+                        numberOfLines={10}
+                        placeholder="Descreva o cenário observado" 
+                        clearButtonMode="always"
+                        // onChangeText={(texto)=>setStatus(texto)}
+                        >
+                </TextInput>
+                <TextInput 
+                        style={styles.input}
+                        placeholder="digite a descrição" 
+                        clearButtonMode="always"
+                        // onChangeText={(texto)=>setPonto_id(texto)}
+                        >
+                </TextInput>      
+
+        </View>
+        <TouchableOpacity style={styles.button} onPress={()=>{saveComarca()}}>
+                    <Text style={styles.buttonText}>Salvar</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => fechar()}>
+                    <Text style={styles.buttonText}>Cancelar</Text>
+        </TouchableOpacity>
+        </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        alignItems:"stretch",
+        backgroundColor:"#fff",
+        backgroundColor:"#f0f0f0",
+
+    },
     inputContainer: {
         alignItems:"stretch",
+        backgroundColor:"#f5f8f9",
         margin:20,
         borderBottomColor:"#666",
         borderRadius:4,
-        borderWidth:1
+        borderWidth:1,
+        borderBottomWidth:2
     },
     containerRadio: {    
         flex: 1,    
@@ -185,18 +210,40 @@ const styles = StyleSheet.create({
     },
     txt:{
         marginTop:10,
+        paddingTop:10,
+        paddingBottom:20,
+        marginBottom:20,
         backgroundColor:"#f5f8f9",
         borderRadius:4,
         paddingHorizontal:24,
         fontSize:16,
         color: '#000406',
         alignItems:"stretch",
-        justifyContent: "flex-start"
+        justifyContent: "center",
+        height:40
+    },
+    txtRadio:{
+        marginTop:10,
+        borderRadius:4,
+        paddingHorizontal:24,
+        fontSize:16,
+        color: '#000406',
+        alignItems:"stretch",
+        justifyContent: "center",
+        height:40
     },
     label:{
         marginTop:10,
         paddingHorizontal:10,
         fontSize:16,
+        fontWeight: 'bold',
+        alignItems:"stretch",
+        justifyContent: "flex-start"
+    },
+    label1:{
+        marginTop:10,
+        paddingHorizontal:10,
+        fontSize:18,
         fontWeight: 'bold',
         alignItems:"stretch",
         justifyContent: "flex-start"
@@ -215,5 +262,37 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontWeight: 'bold'
+    },
+    input:{
+        margin:10,
+        marginTop:10,
+        height:40,
+        backgroundColor:"#fff",
+        borderRadius:10,
+        paddingHorizontal:24,
+        fontSize:16,
+        alignItems:"stretch"
+    },
+    txtArea:{
+        margin:10,
+        paddingLeft:10,
+        paddingTop: 10,
+        height:200,
+        backgroundColor:"#fff",
+        borderRadius:10,
+        fontSize:16,
+        alignItems:"stretch",
+        textAlignVertical: 'top'
+    },
+    input2:{
+        margin:10,
+        marginTop:10,
+        paddingTop: 10,
+        height:60,
+        backgroundColor:"#fff",
+        borderRadius:10,
+        paddingHorizontal:24,
+        fontSize:16,
+        alignItems:"stretch"
     }
 })
